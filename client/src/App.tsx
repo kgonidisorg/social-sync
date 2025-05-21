@@ -8,6 +8,10 @@ import Dashboard from "@/pages/dashboard";
 import Compose from "@/pages/compose";
 import Schedule from "@/pages/schedule";
 import Analytics from "@/pages/analytics";
+import PlatformsIndex from "@/pages/platforms/index";
+import PlatformDetail from "@/pages/platforms/[platform]";
+import AccountSettings from "@/pages/settings/account";
+import PreferencesSettings from "@/pages/settings/preferences";
 
 function Router() {
   return (
@@ -16,6 +20,10 @@ function Router() {
       <Route path="/compose" component={Compose} />
       <Route path="/schedule" component={Schedule} />
       <Route path="/analytics" component={Analytics} />
+      <Route path="/platforms" component={PlatformsIndex} />
+      <Route path="/platforms/:platform" component={PlatformDetail} />
+      <Route path="/settings/account" component={AccountSettings} />
+      <Route path="/settings/preferences" component={PreferencesSettings} />
       <Route component={NotFound} />
     </Switch>
   );
