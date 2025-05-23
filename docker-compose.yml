@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  social-sync:
+    image: social-sync:latest
+    container_name: social-sync
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/social_sync
+      - DEMO=true
+    
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: social_sync
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    
+volumes:
+  pgdata:
+    name: pgdata
+

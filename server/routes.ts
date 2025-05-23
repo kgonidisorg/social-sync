@@ -65,6 +65,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...req.body,
         userId: 1, // For demo purposes, use userId = 1
       });
+
+      // If in DEMO mode, don't post to database
+      if (process.env.DEMO === "true") {
+        return res.status(201).json({
+          ...postData,
+          id: Math.floor(Math.random() * 1000000),
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        });
+      }
       
       const newPost = await storage.createPost(postData);
       
@@ -98,6 +108,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     if (isNaN(id)) {
       return res.status(400).json({ message: "Invalid post ID" });
+    }
+
+    if (process.env.DEMO === "true") {
+      return res.status(200).json({ message: "Post deleted" });
     }
     
     const deleted = await storage.deletePost(id);
