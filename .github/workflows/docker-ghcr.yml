@@ -78,21 +78,22 @@ jobs:
             --amend ghcr.io/kgonidisorg/social-sync:arm64
           docker manifest push ghcr.io/kgonidisorg/social-sync:latest
 
-  # remote-execute:
-  #   runs-on: ubuntu-latest
-  #   needs: merge-manifest
+  remote-execute:
+    runs-on: ubuntu-latest
+    needs: merge-manifest
 
-  #   steps:
-  #     - name: Pull this repo and run docker-compose.yml
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.SSH_HOST }}
-  #         username: ${{ secrets.SSH_USER }}
-  #         key: ${{ secrets.SSH_PRIVATE_KEY }}
-  #         script: |
-  #           git clone https://github.com/${{ github.repository }}.git
-  #           cd $(basename "${{ github.repository }}")
-  #           docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-  #           docker-compose pull
-  #           docker-compose up -d
+    steps:
+      - name: Pull this repo and run docker-compose.yml
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            git clone https://github.com/${{ github.repository }}.git || true
+            cd $(basename "${{ github.repository }}")
+            git pull
+            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+            docker-compose pull
+            docker-compose up -d 
 

@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   social-sync:
     image: ghcr.io/kgonidisorg/social-sync:latest
@@ -11,9 +10,10 @@ services:
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/social_sync
       - DEMO=true
     command: >
-      sh -c "npm run db:push &&
-             npm run db:seed &&
-             npm run start"
+      sh -c "sleep 5 &&
+         npm run db:push &&
+         npm run db:seed &&
+         npm run start"
     
   postgres:
     image: postgres:latest
