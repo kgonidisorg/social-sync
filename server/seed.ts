@@ -14,8 +14,13 @@ async function main() {
   // Check if we already have any users (to avoid duplicating seed data)
   const existingUsers = await db.select().from(users);
   if (existingUsers.length > 0) {
-    console.log('Database already seeded with users, skipping...');
-    return;
+    // delete all existing data
+    await db.delete(users).execute();
+    await db.delete(connectedPlatforms).execute();
+    await db.delete(posts).execute();
+    await db.delete(postPlatforms).execute();
+    await db.delete(analytics).execute();
+    console.log('Existing data deleted.');
   }
 
   // Insert demo user
