@@ -15,11 +15,11 @@ async function main() {
   const existingUsers = await db.select().from(users);
   if (existingUsers.length > 0) {
     // delete all existing data
-    await db.delete(users).execute();
-    await db.delete(connectedPlatforms).execute();
-    await db.delete(posts).execute();
-    await db.delete(postPlatforms).execute();
     await db.delete(analytics).execute();
+    await db.delete(postPlatforms).execute();
+    await db.delete(posts).execute();
+    await db.delete(connectedPlatforms).execute();
+    await db.delete(users).execute();
     console.log('Existing data deleted.');
   }
 
