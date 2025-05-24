@@ -31,7 +31,7 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/kgonidis/social-sync:amd64
+          tags: ghcr.io/kgonidisorg/social-sync:amd64
           provenance: false
 
   build-arm64:
@@ -56,7 +56,7 @@ jobs:
           context: .
           platforms: linux/arm64
           push: true
-          tags: ghcr.io/kgonidis/social-sync:arm64
+          tags: ghcr.io/kgonidisorg/social-sync:arm64
           provenance: false
 
   merge-manifest:
@@ -73,10 +73,10 @@ jobs:
       - name: Create and push manifest
         run: |
           docker buildx create --use
-          docker manifest create ghcr.io/kgonidis/social-sync:latest \
-            --amend ghcr.io/kgonidis/social-sync:amd64 \
-            --amend ghcr.io/kgonidis/social-sync:arm64
-          docker manifest push ghcr.io/kgonidis/social-sync:latest
+          docker manifest create ghcr.io/kgonidisorg/social-sync:latest \
+            --amend ghcr.io/kgonidisorg/social-sync:amd64 \
+            --amend ghcr.io/kgonidisorg/social-sync:arm64
+          docker manifest push ghcr.io/kgonidisorg/social-sync:latest
 
   # remote-execute:
   #   runs-on: ubuntu-latest
